@@ -1,24 +1,3 @@
-<script>
-function loginAdmin () {
-    console.log ("Login start")
-    const employeenumber = document.getElementById("employeenumber").value;
-    const firstname = document.getElementById("firstname").value;
-    const surname = document.getElementById("surname").value;
-    const adminPassword = document.getElementById("adminpassword").value;
-
-    if (employeenumber === "12345" && firstname === "Admin" && surname === "User" && adminPassword === "password") {
-        alert("Login success");
-        window.location.href = "/users";
-    }
-    else {
-        alert("Login failed")
-    }
-}
-</script>
-
-
-
-
 <section>
 <div class="container">
     <section id="objects">
@@ -56,7 +35,7 @@ function loginAdmin () {
                         </div>
                     </div> <!-- close row -->                   
                     <div class="p-2">
-                        <button class="btn btn-primary" type="button" id="submitButton" onclick={() => loginAdmin()}>Login</button>
+                        <button class="btn btn-primary" type="button" id="submitButton">Submit</button>
                     </div>
                 </form>
             </div> <!-- close first main col before form tag -->
