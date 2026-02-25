@@ -46,6 +46,7 @@
                     </div>
                 </form>
             </div> <!-- close first main col before form tag -->
+        </div>
     </section>
 </div> <!-- End of div container-->
 
