@@ -1,3 +1,19 @@
+<script>
+    function loginAdmin() {
+        const employenumber = document.getElementById("employeenumber").value;
+        const firstname = document.getElementById("firstname").value;
+        const surname = document.getElementById("surname").value;
+        const password = document.getElementById("adminpassword").value;
+
+        if (employenumber === "12345" && firstname === "Admin" && surname === "User" && password === "adminpassword") {
+            alert("Login successful!");
+            window.location.href = "/users"; // Redirect to the users page
+        } else {
+            alert("Invalid credentials. Please try again.");
+        }
+    }
+</script>
+
 <section>
 <div class="container">
     <section id="objects">
@@ -35,7 +51,7 @@
                         </div>
                     </div> <!-- close row -->                   
                     <div class="p-2">
-                        <button class="btn btn-primary" type="button" id="submitButton">Submit</button>
+                        <button class="btn btn-primary" type="button" id="submitButton" onclick={loginAdmin}>Submit</button>
                     </div>
                 </form>
             </div> <!-- close first main col before form tag -->
