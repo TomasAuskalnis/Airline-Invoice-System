@@ -1,3 +1,24 @@
+<script>
+    function submit(){
+        console.log("sent")
+        let email = document.getElementById("email").value
+        let fname = document.getElementById("firstname").value
+        let lname = document.getElementById("surname").value
+        let phone = document.getElementById("phone").value
+        let ticket = document.getElementById("ticket").value
+
+        let json = `
+            "{email}": ${email};
+            "{name}": ${name}; 
+            "{last name}": ${lname};
+            "{phone}": ${phone};
+            "{ticket}": ${ticket};
+        `
+
+        console.log(json)
+    }
+</script>
+
 <section>
 <div class="container">
     <section id="objects">
@@ -42,7 +63,7 @@
                         </div>
                     </div> <!-- close row -->                   
                     <div class="p-2">
-                        <button class="btn btn-primary" type="button" id="submitButton">Submit</button>
+                        <button class="btn btn-primary" type="button" id="submitButton" onclick={submit}>Submit</button>
                     </div>
                 </form>
             </div> <!-- close first main col before form tag -->
