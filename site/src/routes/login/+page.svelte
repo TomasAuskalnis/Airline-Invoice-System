@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <div class="mb-4">
                                 <label for="employeenumber" class="form-label">Employee Number</label>
-                                <input type="number" id="employeenumber" class="form-control" value="0">
+                                <input type="text" id="employeenumber" class="form-control" value="0">
                             </div>
                         </div>
                         <div class="col-12">
