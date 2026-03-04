@@ -54,6 +54,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/login"><i class="bi bi-people me-1"></i>Users</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/aircraft"><i class="bi bi-airplane me-1"></i>Aircraft</a>
+					</li>
 				</ul>
 			</div>
 		</div>
