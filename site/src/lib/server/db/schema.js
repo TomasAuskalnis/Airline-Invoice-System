@@ -30,7 +30,9 @@ export const flights = sqliteTable('flights', {
 	flight_id: integer().primaryKey({ autoIncrement: true }),
 	destination: text().notNull().unique(),
 
-	// not sure how to set time type
+	// arrival and departure times are stored in format "YYYY-MM-DD HH:MM:SS"
+	arrival_time: text().notNull(),
+	departure_time: text().notNull(),
 
 	status: text().notNull(),
 	origin: text().notNull(),
