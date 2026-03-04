@@ -27,11 +27,11 @@
 </svelte:head>
 
 <!-- Header with Navbar -->
-<header class="navbar navbar-expand-md navbar-dark bd-navbar bg-dark">
+<header class="navbar navbar-expand-md navbar-dark bd-navbar bg-home">
   <nav class="container-xl flex-wrap flex-md-nowrap" aria-label="Main navigation">
 		<div class="container-fluid main-wrapper">
 			<a class="navbar-brand" href="/">
-				<i class="bi bi-code-square me-2"></i>Flight scheduling
+				<i class="bi bi-airplane-fill me-2"></i>Airline Management System
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -63,6 +63,12 @@
 	</nav>
 </header>
 
+<style>
+	.bg-home {
+		background-color: #0B3D91;
+	}
+
+</style>
 
 
 {@render children()}
