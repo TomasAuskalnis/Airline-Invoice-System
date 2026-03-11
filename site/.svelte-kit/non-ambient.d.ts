@@ -27,7 +27,7 @@ export {};
 
 declare module "$app/types" {
 	export interface AppTypes {
-		RouteId(): "/" | "/aircraft" | "/contact" | "/flights" | "/login" | "/users";
+		RouteId(): "/" | "/aircraft" | "/contact" | "/flights" | "/login" | "/tableAircraft" | "/tableFlights" | "/tableRoutes" | "/tableUsers" | "/users";
 		RouteParams(): {
 			
 		};
@@ -37,10 +37,14 @@ declare module "$app/types" {
 			"/contact": Record<string, never>;
 			"/flights": Record<string, never>;
 			"/login": Record<string, never>;
+			"/tableAircraft": Record<string, never>;
+			"/tableFlights": Record<string, never>;
+			"/tableRoutes": Record<string, never>;
+			"/tableUsers": Record<string, never>;
 			"/users": Record<string, never>
 		};
-		Pathname(): "/" | "/aircraft" | "/contact" | "/flights" | "/login" | "/users";
+		Pathname(): "/" | "/aircraft" | "/contact" | "/flights" | "/login" | "/tableAircraft" | "/tableFlights" | "/tableRoutes" | "/tableUsers" | "/users";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/robots.txt" | string & {};
+		Asset(): "/aircraft.jpg" | "/background.jpg" | "/flights.jpg" | "/robots.txt" | "/users.jpg" | string & {};
 	}
 }

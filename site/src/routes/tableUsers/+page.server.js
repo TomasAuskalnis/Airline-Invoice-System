@@ -1,4 +1,4 @@
-import { flightsService } from '$lib/server/services/flights-service.js';
+import { usersService } from '$lib/server/services/users-service';
 import { error, fail } from '@sveltejs/kit';
 import { ZodError } from 'zod';
 
@@ -6,17 +6,16 @@ import { ZodError } from 'zod';
 export async function load() {
     try {
         // use functions from service layer that then calls data access layer functions
-        const flights = await flightsService.getAllFlights();
-        //$inspect(flights);
+        const users = await usersService.getAllUsers();
 
         // return data
         return {
-            flights: flights
-        };
+            users: users
+        }
     
     // if business logic threw an error then catch it 
     } catch (error) {
-        console.error('Error retrieving flights:', error);
+        console.error('Error retrieving users:', error);
         return fail(500, { error });
     }
 }

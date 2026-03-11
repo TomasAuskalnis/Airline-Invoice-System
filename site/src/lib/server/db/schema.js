@@ -4,11 +4,13 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 // -------------------------------------
 // users table
 // -------------------------------------
-export const users = sqliteTable('users', {
+export const user = sqliteTable('user', {
 	user_id: integer().primaryKey({ autoIncrement: true }),
-	role: integer().notNull().unique(),
-	privilages: text().notNull(),
-	name: text().notNull()
+	role: text().notNull(),       
+	privileges: text().notNull(), 
+	passwordHash: text().notNull(),  // (just plain text for now) 
+	fname: text().notNull(),
+	lname: text().notNull(),
 });
 
 // -------------------------------------
@@ -26,61 +28,50 @@ export const aircraft = sqliteTable('aircraft', {
 // -------------------------------------
 // flights table
 // -------------------------------------
-export const flights = sqliteTable('flights', {
+export const flight = sqliteTable('flight', {
 	flight_id: integer().primaryKey({ autoIncrement: true }),
-	destination: text().notNull().unique(),
-
-	// arrival and departure times are stored in format "YYYY-MM-DD HH:MM:SS"
 	arrival_time: text().notNull(),
 	departure_time: text().notNull(),
-
 	status: text().notNull(),
-	origin: text().notNull(),
 	aircraft_id: integer().notNull(),
 	route_id: integer().notNull(),
-	created_by: integer().notNull(),
-	distance: integer().notNull()
+	created_by: integer().notNull()
 });
 
 // -------------------------------------
 // routes table
 // -------------------------------------
-export const routes = sqliteTable('routes', {
+export const route = sqliteTable('route', {
 	route_id: integer().primaryKey({ autoIncrement: true }),
-	distance: integer().notNull().unique(),
-	starting_route: text().notNull(),
-	ending_route: text().notNull()
+	origin: text().notNull(),
+	destination: text().notNull(),      
+	distance: integer().notNull()
 });
 
 // -------------------------------------
 // relationships
 // -------------------------------------
 
-// to setup a relationship create a variable for the relationship
-// it will be set to a relations object
-// specifies relationship of the 1st table towards the 2nd table
-// set variable to export 
-
 // users -> flights (1:many)
-export const userRelations = relations(users, ({ many }) => ({
-	flights: many(flights,{
-		fields: [users.user_id],
-		references: [flights.created_by]
+export const userRelations = relations(user, ({ many }) => ({
+	flight: many(flight, {
+		fields: [user.user_id],
+		references: [flight.created_by]
 	})
 }));
 
-// aircraft -> flights (many:1)
+// aircraft -> flights (1:many)
 export const aircraftRelations = relations(aircraft, ({ many }) => ({
-	flights: many(flights,{
+	flight: many(flight, {
 		fields: [aircraft.aircraft_id],
-		references: [flights.aircraft_id]
+		references: [flight.aircraft_id]
 	})
 }));
 
 // routes -> flights (1:many)
-export const routeRelations = relations(routes, ({ many }) => ({
-	flights: many(flights, {
-		fields: [routes.route_id],
-		references: [flights.route_id]
+export const routeRelations = relations(route, ({ many }) => ({
+	flight: many(flight, {
+		fields: [route.route_id],
+		references: [flight.route_id]
 	})
 }));

@@ -4,23 +4,14 @@
 
     // get the product and category data
     // if state changes the variable will auto update
-    let routes = $state(data.routes);
-
-    /*
-    export const route = sqliteTable('route', {
-        route_id: integer().primaryKey({ autoIncrement: true }),
-        origin: text().notNull(),
-        destination: text().notNull(),      
-        distance: integer().notNull()
-    });
-    */
+    let users = $state(data.users);
 
     // Svelte 5 introduces $inspect(), which is for debugging reactive state instead of console.log
-    $inspect(routes);
+    $inspect(users);
 </script> 
 
 <section>
-    <h1>Routes</h1>
+    <h1>Users</h1>
 
     <div class="col-sm-10">
         <table class="table table-bordered table-hover w-100">
@@ -29,20 +20,22 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Origin</th> 
-                    <th>Destination</th>
-                    <th>Distance</th>
+                    <th>First name</th> 
+                    <th>Last name</th>
+                    <th>Role</th>
+                    <th>Privileges</th>
                 </tr>
             </thead>
             <tbody>
                 
                 <!-- go through users-->
-                {#each routes as route}
+                {#each users as user}
                     <tr >
-                        <td>{route.route_id}</td>
-                        <td>{route.origin}</td>
-                        <td>{route.destination}</td>
-                        <td>{route.distance}</td>
+                        <td>{user.user_id}</td>
+                        <td>{user.fname}</td>
+                        <td>{user.lname}</td>
+                        <td>{user.role}</td>
+                        <td>{user.privileges}</td>
                     </tr>
                 {/each}
             </tbody>
