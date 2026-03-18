@@ -29,20 +29,20 @@ export const flightsService = {
     },
 
     /** Update a flight */
-    async updateCategory(id, flightData) {
+    async updateFlight(flight_id, flightData) {
         console.log('IN updateFlight >>>>>>');
         const validated = updateFlightSchema.parse(flightData);
-        const updatedFlight = await flightsDataAccess.update(id, validated);
+        const updatedFlight = await flightsDataAccess.update(flight_id, validated);
 
         if (!updatedFlight) throw new NotFoundError('Flight not found after update');
         return updatedFlight;
     },
 
     /** Delete a flight */
-    async deleteFlight(id) {
-        console.log('IN deleteCategory >>>>>>', id);
-        const validated = deleteFlightSchema.parse({ id });
-        const deleted = await flightsDataAccess.delete(validated.id);
+    async deleteFlight(flight_id) {
+        console.log('IN deleteFlight >>>>>>', flight_id);
+        const validated = deleteFlightSchema.parse({ flight_id });
+        const deleted = await flightsDataAccess.delete(validated.flight_id);
 
         if (!deleted) throw new NotFoundError('Flight not found to delete');
         return deleted;
