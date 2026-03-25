@@ -126,7 +126,7 @@
 
             enctype="multipart/form-data"
         >
-            {#if isUpdateMode}
+            {#if isUpdateMode} 
                 <input type="hidden" name="flightID" value={flight.flight_id} />
             {/if}
 

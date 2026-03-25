@@ -67,8 +67,8 @@ export const idSchema = z.object({
 * ========================= */
 export const selectAircraftSchema = createSelectSchema(aircraft);
 
+// DO NOT INCLUDE AIRCRAFT ID
 export const insertAircraftSchema = createInsertSchema(aircraft, {
-    aircraft_id: z.number().int().positive().min(1, 'Aircraft ID is required'),
     model: z.string().min(2, 'Model is required'),
     status: z.string().min(2, 'Status is required'),
     capacity: z.number().int().min(1, 'Capacity must be at least 1'),
@@ -98,8 +98,8 @@ export const flight = sqliteTable('flight', {
 * ========================= */
 export const selectFlightSchema = createSelectSchema(flight);
 
+// DO NOT INCLUDE FLIGHT ID
 export const insertFlightSchema = createInsertSchema(flight, {
-    flight_id: z.number().int().positive().min(1, 'Flight ID is required'),
     arrival_time: z.string().min(2, 'Arrival time is required'),
     departure_time: z.string().min(2, 'Departure time is required'),
     status: z.string().min(2, 'Status is required'),
@@ -131,8 +131,8 @@ export const route = sqliteTable('route', {
 * ======================== */
 export const selectRouteSchema = createSelectSchema(route);
 
+// DO NOT INCLUDE ROUTE ID
 export const insertRouteSchema = createInsertSchema(route, {
-    route_id: z.number().int().positive().min(1, 'Route ID is required'),
     origin: z.string().min(2, 'Origin is required'),
     destination: z.string().min(2, 'Origin is required'),
     distance: z.number().int().min(1, 'Distance is required')
