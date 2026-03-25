@@ -31,6 +31,7 @@ export const flightsDataAccess = {
 
     /** Create a new flight */
     async create(flightData) {
+        console.log(flightData)
         const result = await db.insert(flight).values(flightData).returning();
         console.log("Added flight >>>>>>>", result[0]);
         return result[0];

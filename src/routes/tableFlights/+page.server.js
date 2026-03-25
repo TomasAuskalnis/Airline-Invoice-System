@@ -1,5 +1,6 @@
 import { flightsService } from '$lib/server/services/flights-service.js';
 import { error, fail } from '@sveltejs/kit';
+import { inspect } from 'node:util';
 import { ZodError } from 'zod';
 
 // load - server side
@@ -34,6 +35,7 @@ export const actions = {
             // create an array with the form data
             // get should correspond to names in markdown of form
             const flightData = {
+                flight_id: 3, // hardcoded for now, for some reason not being autoincremented
                 arrival_time: formData.get('flightArrival'),
                 departure_time: formData.get('flightDeparture'),
                 status: formData.get('flightStatus'),
@@ -41,6 +43,11 @@ export const actions = {
                 route_id: Number(formData.get('flightRoute')),
                 created_by: Number(formData.get('flightCreatedBy'))
             };
+
+            // ids don't update but that's fine (flights don't change route or aircraft mid flight)
+
+            // form data is not getting a flight id set when being created
+            //console.log(formData.get('flightID'))
 
             // Call the flight service passing in the form data into the create function
             await flightsService.createFlight(flightData);
