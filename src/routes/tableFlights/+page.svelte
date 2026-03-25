@@ -43,8 +43,9 @@
 	}
       
     // Function when updating the form
-    function handleUpdate(flight) {
-        flight = flight; // set selected flight to argument
+    function handleUpdate(flightIn) {
+        //console.log(flightIn)
+        flight = flightIn; // set selected flight to argument
 		showForm = true;
 	}
 

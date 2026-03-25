@@ -23,6 +23,7 @@ export const flightsService = {
 
     /** Create a new flight */
     async createFlight(flightData) {
+        //console.log(flightData)
         console.log('IN createFlight >>>>>>');
         const validated = insertFlightSchema.parse(flightData);
         return await flightsDataAccess.create(validated);
