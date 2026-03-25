@@ -1,17 +1,11 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { user } from './auth.schema.js';
 
 // -------------------------------------
 // users table
 // -------------------------------------
-export const user = sqliteTable('user', {
-	user_id: integer().primaryKey({ autoIncrement: true }),
-	role: text().notNull(),       
-	privileges: text().notNull(), 
-	passwordHash: text().notNull(),  // (just plain text for now) 
-	fname: text().notNull(),
-	lname: text().notNull(),
-});
+
 
 // -------------------------------------
 // aircraft table
@@ -44,20 +38,16 @@ export const flight = sqliteTable('flight', {
 export const route = sqliteTable('route', {
 	route_id: integer().primaryKey({ autoIncrement: true }),
 	origin: text().notNull(),
-	destination: text().notNull(),      
+	destination: text().notNull(),
 	distance: integer().notNull()
 });
 
 // -------------------------------------
 // relationships
 // -------------------------------------
-
 // users -> flights (1:many)
 export const userRelations = relations(user, ({ many }) => ({
-	flight: many(flight, {
-		fields: [user.user_id],
-		references: [flight.created_by]
-	})
+	flight: many(flight, { fields: [user.user_id], references: [flight.created_by] })
 }));
 
 // aircraft -> flights (1:many)
@@ -70,8 +60,7 @@ export const aircraftRelations = relations(aircraft, ({ many }) => ({
 
 // routes -> flights (1:many)
 export const routeRelations = relations(route, ({ many }) => ({
-	flight: many(flight, {
-		fields: [route.route_id],
-		references: [flight.route_id]
-	})
+	flight: many(flight, { fields: [route.route_id], references: [flight.route_id] })
 }));
+
+export *  from './auth.schema';
