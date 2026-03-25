@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'; 
 import { user, aircraft, flight, route } from './schema.js';
+import { ROLE_VALUES, ROLES } from '$lib/constants/roles.js';
 
 /* what needs to be done for each table;
 1. Define required type and length for each columm
@@ -9,36 +10,49 @@ import { user, aircraft, flight, route } from './schema.js';
 
 /** =========================
 * User Schemas
-export const user = sqliteTable('user', {
-    user_id: integer().primaryKey({ autoIncrement: true }),
-    role: integer().notNull(),       
-    privileges: text().notNull(),     
-    name: text().notNull()
-});
 * ========================= */
 export const selectUserSchema = createSelectSchema(user);
 
-export const insertUserSchema = createInsertSchema(user, {
-    user_id: z.number().int().positive().min(1, 'User ID is required'),
-    name: z.string().min(2, 'Name must be at least 2 characters'),
-    passwordHash: z.string().min(6, 'Password is required'),
-    fname: z.string().min(1, 'Firstname is required'),
-    lname: z.string().min(1, 'Lastname is required'),
-    role: z.enum(['user', 'admin']).default('user')
+/** Admin / future manual user creation */
+export const adminInsertUserSchema = createInsertSchema(user, {
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Must be a valid email'),
+  dob: z.string().min(1, 'Date of birth is required').nullable().optional(),
+  role: z.enum(ROLE_VALUES).default(ROLES.USER)
 });
 
-// rules for updating the table
-export const updateUserSchema = insertUserSchema
-    .partial()
-    .omit({
-    user_id: true,
-    passwordHash: true // update password separately
-});
+export const updateUserSchema = adminInsertUserSchema
+  .partial()
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+    emailVerified: true
+  });
 
-// rules fr deleting from the rable
 export const deleteUserSchema = z.object({
-    user_id: z.number().int().positive()
+  id: z.number().int().positive()
 });
+
+/** Registration form validation */
+export const registerAuthSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Must be a valid email'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  dob: z.string().min(1, 'Date of birth is required').nullable().optional()
+});
+
+/** Normal user profile update */
+export const updateProfileSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').optional(),
+  dob: z.string().min(1, 'Date of birth is required').nullable().optional()
+});
+
+/** Simple ID validation */
+export const idSchema = z.object({
+  id: z.number().int().positive()
+});
+
 
 /** ========================= 
  *  * Aircraft Schemas
@@ -122,14 +136,4 @@ export const insertRouteSchema = createInsertSchema(route, {
     origin: z.string().min(2, 'Origin is required'),
     destination: z.string().min(2, 'Origin is required'),
     distance: z.number().int().min(1, 'Distance is required')
-});
-
-export const updateRouteSchema = insertRouteSchema
-    .partial()
-    .omit({
-    route_id: true
-});
-
-export const deleteRouteSchema = z.object({
-    route_id: z.number().int().positive()
 });
