@@ -19,7 +19,7 @@
 		}
 	})
 
-	let { children } = $props();
+	let { children, data } = $props();
 </script>
 
 <svelte:head>
@@ -57,6 +57,28 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/aircraft"><i class="bi bi-airplane me-1"></i>Aircraft</a>
 					</li>
+					{#if data.user}
+						<li class="nav-item dropdown">
+							<button class="nav-link dropdown-toggle btn btn-link" type="button" data-bs-toggle="dropdown">
+  								<i class="bi bi-person-circle me-1"></i>{data.user.name} ({data.user.role})
+							</button>
+							<ul class="dropdown-menu dropdown-menu-end">
+								<li><a class="dropdown-item" href="/account"><i class="bi bi-person me-1"></i>Profile</a></li>
+								<li><hr class="dropdown-divider" /></li>
+								<li>
+									<form method="post" action="/auth/logout">
+										<button class="dropdown-item text-danger" type="submit">
+											<i class="bi bi-box-arrow-right me-1"></i>Logout
+										</button>
+									</form>
+								</li>
+							</ul>
+						</li>
+					{:else}
+					<li class="nav-item">
+						<a class="nav-link" href="/auth/login"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
+					</li>
+					{/if}
 				</ul>
 			</div>
 		</div>
