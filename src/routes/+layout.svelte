@@ -52,7 +52,7 @@
 						<a class="nav-link" href="/flights"><i class="bi bi-globe me-1"></i>Flights</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/login"><i class="bi bi-people me-1"></i>Users</a>
+						<a class="nav-link" href="/users"><i class="bi bi-people me-1"></i>Users</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/aircraft"><i class="bi bi-airplane me-1"></i>Aircraft</a>
