@@ -20,22 +20,20 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>First name</th> 
-                    <th>Last name</th>
+                    <th>Name</th> 
+                    <th>Email</th>
                     <th>Role</th>
-                    <th>Privileges</th>
                 </tr>
             </thead>
             <tbody>
                 
                 <!-- go through users-->
                 {#each users as user}
-                    <tr >
-                        <td>{user.user_id}</td>
-                        <td>{user.fname}</td>
-                        <td>{user.lname}</td>
+                    <tr>
+                        <td>{user.id}</td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
                         <td>{user.role}</td>
-                        <td>{user.privileges}</td>
                     </tr>
                 {/each}
             </tbody>
