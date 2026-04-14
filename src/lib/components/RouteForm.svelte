@@ -128,7 +128,7 @@
                 <input
                     type="text"
                     class="form-control"
-                    class:is-invalid={errors.arrival}
+                    class:is-invalid={errors.origin}
                     id="routeOrigin"
                     name="routeOrigin"
                     bind:value={routeForm.routeOrigin}

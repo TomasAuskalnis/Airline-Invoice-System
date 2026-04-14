@@ -29,6 +29,14 @@ export const usersDataAccess = {
 		return await db.select(publicCols).from(user);
 	},
 
+	/** Create a new user */
+	async create(userData) {
+		console.log(userData)
+		const result = await db.insert(user).values(userData).returning();
+		console.log("Added user >>>>>>>", result[0]);
+		return result[0];
+	},
+
 	async update(id, userData) {
 		const result = await db.update(user).set(userData).where(eq(user.id, id)).returning(publicCols);
 		return result[0] ?? null;
