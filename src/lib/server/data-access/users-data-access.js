@@ -31,7 +31,7 @@ export const usersDataAccess = {
 
 	/** Create a new user */
 	async create(userData) {
-		console.log(userData)
+		//console.log(userData)
 		const result = await db.insert(user).values(userData).returning();
 		console.log("Added user >>>>>>>", result[0]);
 		return result[0];
@@ -42,8 +42,9 @@ export const usersDataAccess = {
 		return result[0] ?? null;
 	},
 
-	async delete(id) {
-		const result = await db.delete(user).where(eq(user.id, id));
+	async delete(user_id) {
+		//console.log(user_id)
+		const result = await db.delete(user).where(eq(user.id, user_id));
 		return result.rowsAffected > 0;
 	}
 };

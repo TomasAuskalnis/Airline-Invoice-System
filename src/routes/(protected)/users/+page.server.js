@@ -131,6 +131,7 @@ export const actions = {
 
             // small form that only needs id, retrieve it 
             const id = Number(formData.get('userID'));
+            console.log(typeof(id))
             
             // Call the users service passing in the ID
             await usersService.deleteUser(id);

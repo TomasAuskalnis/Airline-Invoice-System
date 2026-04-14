@@ -25,10 +25,11 @@ export const usersService = {
 	},
 
 	/** Delete a user */
-	async deleteUser(user_id) {
-		console.log('IN deleteUser >>>>>>', user_id);
-		const validated = deleteUserSchema.parse({ user_id });
-		const deleted = await usersDataAccess.delete(validated.user_id);
+	// make sure to use id as argument (must be consistent with id naming convention)
+	async deleteUser(id) {
+		console.log('IN deleteUser >>>>>>', id);
+		const validated = deleteUserSchema.parse({ id });
+		const deleted = await usersDataAccess.delete(validated.id);
 
 		if (!deleted) throw new NotFoundError('User not found to delete');
 		return deleted;
