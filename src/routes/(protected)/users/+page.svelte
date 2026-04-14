@@ -1,10 +1,11 @@
 <script>
     import { duration } from 'drizzle-orm/gel-core';
     import { enhance } from '$app/forms';
-    import { slide, fade } from 'svelte/transition';
 
     // user form component
     import UserForm from '$lib/components/UserForm.svelte';
+
+    import { slide, fade } from 'svelte/transition';
 
     // get data that was returned when the page was loaded
     let { data } = $props();
@@ -55,6 +56,7 @@
     // Open modal and remember the selected user
     function openDeleteModal(user){
         userToDelete = user;
+        //console.log(userToDelete.id)
         showDeleteModal = true;
         modalDeleteError = ''; // clear old errors
     }
@@ -173,55 +175,65 @@
     </div>
 </section>
 
-    <!-- Modal Popup with smooth fade -->
-    {#if showDeleteModal}
-    <div
-        class="modal d-block"
-        tabindex="-1"
-        style="background: rgba(0,0,0,0,5); z-index: 1050;"
-        transition:fade|slide
-    >
-    
-     <div class="modal-dialog" role="document">
-        <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">Confirm Delete</h5>
-            <button
-                type="button"
-                class="btn-close"
-                aria-label="Close"
-                onclick={closeDeleteModal}
-            ></button>
-        </div>
+<!-- Modal Popup with smooth fade -->
+<!-- modal dialog was being closed too early and rgba had too many 0s-->
+{#if showDeleteModal}
+<div
+  class="modal d-block"
+  tabindex="-1"
+  style="background: rgba(0,0,0,0.5); z-index: 1050;"
+  transition:fade
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
 
-        <div class="modal-body">
-            <p>
-                Are you sure you want to delete <strong>{userToDelete?.id}</strong>?
-            </p>
+      <!-- Header -->
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          onclick={closeDeleteModal}
+        ></button>
+      </div>
 
-            <!-- Show failure message inside the modal -->
-            {#if modalDeleteError}
-             <div class="alert alert-danger mt-3">{modalDeleteError}</div>
-            {/if}
-        </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete
+          <strong>{userToDelete?.id}</strong>?
+        </p>
 
-        <div class="modal-footer">
-        <!-- This is the REAL delete form -->
-        <!-- function to delete called through form post -->
-         <form method="POST" action="?/deleteUser" use:enhance={enhanceDeleteModal}>
+        {#if modalDeleteError}
+          <div class="alert alert-danger mt-3">
+            {modalDeleteError}
+          </div>
+        {/if}
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <form method="POST" action="?/deleteUser" use:enhance={enhanceDeleteModal}>
           <input type="hidden" name="userID" value={userToDelete?.id} />
-          <button type="submit" class="btn btn-danager">Yes, Delete</button>
-        
+
+          <button type="submit" class="btn btn-danger">
+            Yes, Delete
+          </button>
+
           <button
-              type="button"
-              class="btn btn-secondary"
-              onclick={closeDeleteModal}
-           >
-             Cancel
-           </button>
+            type="button"
+            class="btn btn-secondary"
+            onclick={closeDeleteModal}
+          >
+            Cancel
+          </button>
         </form>
-        </div>
-     </div>
+      </div>
+
     </div>
+  </div>
+</div>
 {/if}
 
 <style>
