@@ -1,5 +1,5 @@
 import { usersDataAccess } from '$lib/server/data-access/users-data-access.js';
-import { idSchema, updateProfileSchema, adminInsertUserSchema } from '$lib/server/db/validation.js';
+import { idSchema, updateProfileSchema, adminInsertUserSchema, deleteUserSchema } from '$lib/server/db/validation.js';
 
 export const usersService = {
 	async getById(id) {
@@ -22,6 +22,16 @@ export const usersService = {
 		// Validate with Zod
 		const validated = adminInsertUserSchema.parse(userData);
 		return await usersDataAccess.create(validated);
+	},
+
+	/** Delete a user */
+	async deleteUser(user_id) {
+		console.log('IN deleteUser >>>>>>', user_id);
+		const validated = deleteUserSchema.parse({ user_id });
+		const deleted = await usersDataAccess.delete(validated.user_id);
+
+		if (!deleted) throw new NotFoundError('User not found to delete');
+		return deleted;
 	},
 
 	async updateProfile(id, profileData) {
