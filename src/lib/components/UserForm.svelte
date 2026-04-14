@@ -43,31 +43,34 @@
 
     // route form variables
     let userForm = $state({
-        routeOrigin: '',
-        routeDestination: '',
-        routeDistance: 0
+        userName: '',
+        userEmail: '',
+        userPassword: '',
+        userDob: ''
     });
 
     /* =========================
        Sync route → form
     ========================== */
     $effect(() => {
-        if (route) { // if there is a route set values of form
-            routeForm.routeOrigin = route.origin ?? '';
-            routeForm.routeDestination = route.destination ?? '';
-            routeForm.routeDistance = route.distance ?? 0;
+        if (user) { // if there is a user set values of form
+            userForm.userName = user.name ?? '';
+            userForm.userEmail = user.email ?? '';
+            userForm.userPassword = user.password ?? '';
+            userForm.userDob = user.dob ?? '';
 
         } else { // if there now isn't return them to blanks
-            routeForm.routeOrigin = '';
-            routeForm.routeDestination = '';
-            routeForm.routeDistance = 0;
+            userForm.userName = '';
+            userForm.userEmail = '';
+            userForm.userPassword = '';
+            userForm.userDob = '';
         }
     });
 
     /* =========================
        enhance handler
     ========================== */
-    function enhanceFlightForm() {
+    function enhanceUserForm() {
         return ({ result, update }) => {
             if (!result) return;
 
@@ -75,8 +78,8 @@
 
             if (result.type === 'success') {
                 successMessage = isUpdateMode
-                    ? 'Route updated!'
-                    : 'Route created!';
+                    ? 'User updated!'
+                    : 'User created!';
                 errors = {};
             } else if (result.type === 'failure') {
                 errors = { ...result.data.errors };
@@ -100,7 +103,7 @@
      when using the component
 ========================== -->
 
-<div id="route-form" class="card shadow-sm w-50">
+<div id="user-form" class="card shadow-sm w-50">
     <div class="card-header bg-success text-white">
         <h2 class="h4 mb-0">{formTitle}</h2>
     </div>
@@ -108,19 +111,19 @@
     <div class="card-body">
         <form
             method="POST"
-            action={isUpdateMode ? '?/updateRoute' : '?/createRoute'}
-            use:enhance={enhanceFlightForm}
+            action={isUpdateMode ? '?/updateUser' : '?/createUser'}
+            use:enhance={enhanceUserForm}
 
             enctype="multipart/form-data"
         >
             {#if isUpdateMode} 
-                <input type="hidden" name="routeID" value={route.route_id} />
+                <input type="hidden" name="userName" value={user.name} />
             {/if}
 
-            <!-- Origin -->
+            <!-- Name -->
             <div class="mb-3">
-                <label for="routeOrigin" class="form-label">
-                    Origin <span class="text-danger" aria-label="required">*</span>
+                <label for="userName" class="form-label">
+                    Name <span class="text-danger" aria-label="required">*</span>
                 </label>
 
                 <!-- make sure to setup aria for accessibility -->
@@ -128,77 +131,102 @@
                     type="text"
                     class="form-control"
                     class:is-invalid={errors.arrival}
-                    id="routeOrigin"
-                    name="routeOrigin"
-                    bind:value={routeForm.routeOrigin}
+                    id="userName"
+                    name="userName"
+                    bind:value={UserForm.userName}
                     required
 
                     aria-required="true"
-                    aria-describedby={errors.origin ? 'routeOrigin-error' : undefined}
+                    aria-describedby={errors.origin ? 'userName-error' : undefined}
                     aria-invalid={errors.origin ? 'true' : 'false'}
 
-                    placeholder="Enter Route origin"
+                    placeholder="Enter Name"
                 />
                 {#if errors.origin}
-                    <div id="routeOrigin-error" class="form-text text-danger">
-                        {errors.origin}
+                    <div id="userName-error" class="form-text text-danger">
+                        {errors.name}
                     </div>
                 {/if}
             </div>
 
-            <!-- Destination -->
+            <!-- Email -->
             <div class="mb-3">
-                <label for="routeDestination" class="form-label">
-                    Destination <span class="text-danger" aria-label="required">*</span>
+                <label for="userEmail" class="form-label">
+                    Email <span class="text-danger" aria-label="required">*</span>
                 </label>
                 <input
                     type="text"
                     class="form-control"
-                    class:is-invalid={errors.destination}
-                    id="routeDestination"
-                    name="routeDestination"
-                    bind:value={routeForm.routeDestination}
+                    class:is-invalid={errors.email}
+                    id="userEmail"
+                    name="userEmail"
+                    bind:value={userForm.userEmail}
                     required
                     aria-required="true"
-                    aria-describedby={errors.destination ? 'routeDestination-error' : undefined}
-                    aria-invalid={errors.destination ? 'true' : 'false'}
-                    placeholder="Enter Destination"
+                    aria-describedby={errors.email ? 'userEmail-error' : undefined}
+                    aria-invalid={errors.email ? 'true' : 'false'}
+                    placeholder="Enter Email"
                 />
-                {#if errors.destination}
-                    <div id="routeDestination-error" class="form-text text-danger">
-                        {errors.destination}
+                {#if errors.email}
+                    <div id="userEmail-error" class="form-text text-danger">
+                        {errors.email}
                     </div>
                 {/if}
             </div>
 
-            <!-- Distance -->
+            <!-- Password -->
             <div class="mb-3">
-                <label for="routeDistance" class="form-label">
-                    Distance <span class="text-danger" aria-label="required">*</span>
+                <label for="userPassword" class="form-label">
+                    Password <span class="text-danger" aria-label="required">*</span>
                 </label>
                 <input
                     type="number"
                     class="form-control"
-                    class:is-invalid={errors.distance}
-                    id="routeDistance"
-                    name="routeDistance"
-                    bind:value={routeForm.routeDistance}
+                    class:is-invalid={errors.password}
+                    id="userPassword"
+                    name="userPassword"
+                    bind:value={UserForm.userPassword}
                     required
                     aria-required="true"
-                    aria-describedby={errors.distance ? 'routeDistance-error' : undefined}
-                    aria-invalid={errors.distance ? 'true' : 'false'}
-                    placeholder="Enter Distance"
+                    aria-describedby={errors.password ? 'userPassword-error' : undefined}
+                    aria-invalid={errors.password ? 'true' : 'false'}
+                    placeholder="Enter Password"
                 />
-                {#if errors.distance}
-                    <div id="routeDistance-error" class="form-text text-danger">
-                        {errors.distance}
+                {#if errors.password}
+                    <div id="userPassword-error" class="form-text text-danger">
+                        {errors.password}
+                    </div>
+                {/if}
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="mb-3">
+                <label for="userDob" class="form-label">
+                    Date of Birth <span class="text-danger" aria-label="required">*</span>
+                </label>
+                <input
+                    type="number"
+                    class="form-control"
+                    class:is-invalid={errors.dob}
+                    id="userDob"
+                    name="userDob"
+                    bind:value={UserForm.userDob}
+                    required
+                    aria-required="true"
+                    aria-describedby={errors.dob ? 'userDob-error' : undefined}
+                    aria-invalid={errors.dob ? 'true' : 'false'}
+                    placeholder="Enter Date of Birth"
+                />
+                {#if errors.dob}
+                    <div id="userDob-error" class="form-text text-danger">
+                        {errors.dob}
                     </div>
                 {/if}
             </div>
 
             <button type="submit" class="btn btn-success">
                 <i class="bi bi-{isUpdateMode ? 'check' : 'plus'}-circle me-1"></i>
-                {isUpdateMode ? 'Update Flight' : 'Create Flight'}
+                {isUpdateMode ? 'Update User' : 'Create User'}
             </button>
 
             <button
