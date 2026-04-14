@@ -46,7 +46,8 @@
         userName: '',
         userEmail: '',
         userPassword: '',
-        userDob: ''
+        userDob: '',
+        userRole: 'user',
     });
 
     /* =========================
@@ -58,12 +59,14 @@
             userForm.userEmail = user.email ?? '';
             userForm.userPassword = user.password ?? '';
             userForm.userDob = user.dob ?? '';
+            userForm.userRole = user.role ?? 'user';
 
         } else { // if there now isn't return them to blanks
             userForm.userName = '';
             userForm.userEmail = '';
             userForm.userPassword = '';
             userForm.userDob = '';
+            userForm.userRole = 'user';
         }
     });
 
@@ -220,6 +223,31 @@
                 {#if errors.dob}
                     <div id="userDob-error" class="form-text text-danger">
                         {errors.dob}
+                    </div>
+                {/if}
+            </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+                <label for="userRole" class="form-label">
+                    Role <span class="text-danger" aria-label="required">*</span>
+                </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    class:is-invalid={errors.role}
+                    id="userRole"
+                    name="userRole"
+                    bind:value={userForm.userRole}
+                    required
+                    aria-required="true"
+                    aria-describedby={errors.role ? 'userRole-error' : undefined}
+                    aria-invalid={errors.role ? 'true' : 'false'}
+                    placeholder="Enter Role"
+                />
+                {#if errors.role}
+                    <div id="userRole-error" class="form-text text-danger">
+                        {errors.role}
                     </div>
                 {/if}
             </div>
