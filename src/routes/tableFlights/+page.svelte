@@ -205,6 +205,7 @@
             onclick={closeDeleteModal}
         ></button>
       </div>
+    </div>
 
       <div class="modal-body">
         <p>
@@ -235,7 +236,6 @@
       </div>
     </div>
   </div>
-</div>
 {/if}
 
 <style>
