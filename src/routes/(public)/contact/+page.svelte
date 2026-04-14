@@ -1,4 +1,13 @@
 <script>
+    import { enhance } from '$app/forms';
+
+    // get data that was returned when the page was loaded
+    let { data } = $props();
+
+    // get the user opening page too
+    let user =  $state(data.user)
+    //console.log(user)
+
     function submit(){
         console.log("sent")
         let email = document.getElementById("email").value
@@ -14,9 +23,7 @@
             "{phone}": ${phone};
             "{ticket}": ${ticket};
         `
-
-        console.log(json)
-    }
+} 
 </script>
 
 <section>
@@ -26,7 +33,7 @@
             <div class="col-4">
                 <h3 id="formHeading">Enter your details for a response</h3>
                 
-                <form id="objectsForm" class="p-2">
+                <form id="objectsForm" method="POST" action="?/notifyContactReceived" use:enhance class="p-2">
                     
                     <h3>Details</h3>
                     <div class="row">
@@ -63,7 +70,9 @@
                         </div>
                     </div> <!-- close row -->                   
                     <div class="p-2">
-                        <button class="btn btn-primary" type="button" id="submitButton" onclick={submit}>Submit</button>
+                        <button type="submit" class="btn btn-primary">
+                            Send Email
+                        </button>
                     </div>
                 </form>
             </div> <!-- close first main col before form tag -->
