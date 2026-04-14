@@ -50,7 +50,7 @@
     });
 
     /* =========================
-       Sync route → form
+       Sync user → form
     ========================== */
     $effect(() => {
         if (user) { // if there is a user set values of form
@@ -117,7 +117,7 @@
             enctype="multipart/form-data"
         >
             {#if isUpdateMode} 
-                <input type="hidden" name="userName" value={user.name} />
+                <input type="hidden" name="userID" value={user.id} />
             {/if}
 
             <!-- Name -->
@@ -130,19 +130,19 @@
                 <input
                     type="text"
                     class="form-control"
-                    class:is-invalid={errors.arrival}
+                    class:is-invalid={errors.name}
                     id="userName"
                     name="userName"
                     bind:value={userForm.userName}
                     required
 
                     aria-required="true"
-                    aria-describedby={errors.origin ? 'userName-error' : undefined}
-                    aria-invalid={errors.origin ? 'true' : 'false'}
+                    aria-describedby={errors.name ? 'userName-error' : undefined}
+                    aria-invalid={errors.name ? 'true' : 'false'}
 
                     placeholder="Enter Name"
                 />
-                {#if errors.origin}
+                {#if errors.name}
                     <div id="userName-error" class="form-text text-danger">
                         {errors.name}
                     </div>

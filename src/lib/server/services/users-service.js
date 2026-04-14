@@ -1,5 +1,5 @@
 import { usersDataAccess } from '$lib/server/data-access/users-data-access.js';
-import { idSchema, updateProfileSchema } from '$lib/server/db/validation.js';
+import { idSchema, updateProfileSchema, adminInsertUserSchema } from '$lib/server/db/validation.js';
 
 export const usersService = {
 	async getById(id) {
@@ -13,6 +13,15 @@ export const usersService = {
 
 	async getAllUsers() {
 		return await usersDataAccess.findAll();
+	},
+
+	/** Create a new user */
+	async createUser(userData) {
+		console.log("IN createUser >>>>>>");
+
+		// Validate with Zod
+		const validated = adminInsertUserSchema.parse(userData);
+		return await usersDataAccess.create(validated);
 	},
 
 	async updateProfile(id, profileData) {

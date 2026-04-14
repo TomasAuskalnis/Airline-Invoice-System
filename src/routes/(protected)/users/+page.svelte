@@ -59,7 +59,7 @@
         modalDeleteError = ''; // clear old errors
     }
 
-    // Close modal and clear selected flight/error
+    // Close modal and clear selected user/error
     function closeDeleteModal() {
         showDeleteModal = false;
         userToDelete = null;
@@ -195,7 +195,7 @@
 
         <div class="modal-body">
             <p>
-                Are you sure you want to delete <strong>{userToDelete?.user.id}</strong>?
+                Are you sure you want to delete <strong>{userToDelete?.id}</strong>?
             </p>
 
             <!-- Show failure message inside the modal -->
@@ -207,8 +207,8 @@
         <div class="modal-footer">
         <!-- This is the REAL delete form -->
         <!-- function to delete called through form post -->
-         <form method="POSTt" action="?/deleteUser" use:enhance={enhanceDeleteModal}>
-          <input type="hidden" name="userID" value={userToDelete?.user.id} />
+         <form method="POST" action="?/deleteUser" use:enhance={enhanceDeleteModal}>
+          <input type="hidden" name="userID" value={userToDelete?.id} />
           <button type="submit" class="btn btn-danager">Yes, Delete</button>
         
           <button
