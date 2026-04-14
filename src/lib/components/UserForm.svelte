@@ -133,7 +133,7 @@
                     class:is-invalid={errors.arrival}
                     id="userName"
                     name="userName"
-                    bind:value={UserForm.userName}
+                    bind:value={userForm.userName}
                     required
 
                     aria-required="true"
@@ -180,12 +180,12 @@
                     Password <span class="text-danger" aria-label="required">*</span>
                 </label>
                 <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     class:is-invalid={errors.password}
                     id="userPassword"
                     name="userPassword"
-                    bind:value={UserForm.userPassword}
+                    bind:value={userForm.userPassword}
                     required
                     aria-required="true"
                     aria-describedby={errors.password ? 'userPassword-error' : undefined}
@@ -205,12 +205,12 @@
                     Date of Birth <span class="text-danger" aria-label="required">*</span>
                 </label>
                 <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     class:is-invalid={errors.dob}
                     id="userDob"
                     name="userDob"
-                    bind:value={UserForm.userDob}
+                    bind:value={userForm.userDob}
                     required
                     aria-required="true"
                     aria-describedby={errors.dob ? 'userDob-error' : undefined}
