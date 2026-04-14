@@ -137,3 +137,14 @@ export const insertRouteSchema = createInsertSchema(route, {
     destination: z.string().min(2, 'Origin is required'),
     distance: z.number().int().min(1, 'Distance is required')
 });
+
+export const updateRouteSchema = createInsertSchema(route, {
+    origin: z.string().min(2, 'Origin is required'),
+    destination: z.string().min(2, 'Destination is required'),
+    distance: z.number().int().min(1, 'Distance is required')
+}).partial();
+
+export const deleteRouteSchema = z.object({
+    route_id: z.number().int().positive()
+});
+

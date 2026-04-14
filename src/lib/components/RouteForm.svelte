@@ -68,7 +68,7 @@
     /* =========================
        enhance handler
     ========================== */
-    function enhanceFlightForm() {
+    function enhanceRouteForm() {
         return ({ result, update }) => {
             if (!result) return;
 
@@ -110,7 +110,7 @@
         <form
             method="POST"
             action={isUpdateMode ? '?/updateRoute' : '?/createRoute'}
-            use:enhance={enhanceFlightForm}
+            use:enhance={enhanceRouteForm}
 
             enctype="multipart/form-data"
         >
@@ -199,7 +199,7 @@
 
             <button type="submit" class="btn btn-success">
                 <i class="bi bi-{isUpdateMode ? 'check' : 'plus'}-circle me-1"></i>
-                {isUpdateMode ? 'Update Flight' : 'Create Flight'}
+                {isUpdateMode ? 'Update Route' : 'Create Route'}
             </button>
 
             <button

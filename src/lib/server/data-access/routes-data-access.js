@@ -27,14 +27,14 @@ export const routesDataAccess = {
 
     /* Create a new route */
     async create(routeData) {
-        const result = await db.insert(user).values(routeData).returning();
+        const result = await db.insert(route).values(routeData).returning();
         console.log("Added route >>>>>>>", result[0]);
         return result[0];
     },
 
     /** Update an existing route */
     async update(id, routeData) {
-        const result = await db.update(user).set(routeData).where(eq(route.route_id, id)).returning();
+        const result = await db.update(route).set(routeData).where(eq(route.route_id, id)).returning();
         console.log("Updated route >>>>>>>", result[0]);
         return result[0];
     },

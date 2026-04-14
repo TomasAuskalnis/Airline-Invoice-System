@@ -30,20 +30,21 @@ export const routesService = {
     },
 
     /** Update an route */
-    async updateRoute(id, routeData) {
+    async updateRoute(route_id, routeData) {
         console.log('IN updateRoute >>>>>>');
         const validated = updateRouteSchema.parse(routeData);
-        const updatedRoute = await routesDataAccess.update(id, validated);
+        console.log(validated)
+        const updatedRoute = await routesDataAccess.update(route_id, validated);
 
         if (!updatedRoute) throw new NotFoundError('Route not found after update');
         return updatedRoute;
     },
 
     /** Delete an route */
-    async deleteRoute(id) {
-        console.log('IN deleteRoute >>>>>>', id);
-        const validated = deleteRouteSchema.parse({ id });
-        const deleted = await routesDataAccess.delete(validated.id);
+    async deleteRoute(route_id) {
+        console.log('IN deleteRoute >>>>>>', route_id);
+        const validated = deleteRouteSchema.parse({ route_id });
+        const deleted = await routesDataAccess.delete(validated.route_id);
 
         if (!deleted) throw new NotFoundError('Route not found to delete');
         return deleted;

@@ -76,7 +76,7 @@
     /* =========================
        enhance handler
     ========================== */
-    function enhanceFlightForm() {
+    function enhanceAircraftForm() {
         return ({ result, update }) => {
             if (!result) return;
 
@@ -118,7 +118,7 @@
         <form
             method="POST"
             action={isUpdateMode ? '?/updateAircraft' : '?/createAircraft'}
-            use:enhance={enhanceFlightForm}
+            use:enhance={enhanceAircraftForm}
 
             enctype="multipart/form-data"
         >

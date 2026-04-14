@@ -11,7 +11,7 @@ import { ValidationError, NotFoundError } from '../utils/errors.js';
 import { insertAircraftSchema, updateAircraftSchema, deleteAircraftSchema } from '../db/validation.js';
 
 // export whole function to be usable elsewhere
-export const aicraftsService = {
+export const aircraftsService = {
 
     /** Get a aircraft by ID */
     async getAircraftById(id) {
@@ -57,12 +57,12 @@ export const aicraftsService = {
     },
 
     /** Delete a aircraft */
-    async deleteAircraft(id) {
+    async deleteAircraft(aircraft_id) {
         console.log("IN deleteAircraft >>>>>>");
 
         // Validate with Zod (expects object with id)
-        const validated = deleteAircraftSchema.parse({ id });
-        const deleted = await aircraftsDataAccess.delete(validated.id);
+        const validated = deleteAircraftSchema.parse({ aircraft_id });
+        const deleted = await aircraftsDataAccess.delete(validated.aircraft_id);
 
         if (!deleted) throw new NotFoundError('Aircraft not found to delete');
         return deleted;
