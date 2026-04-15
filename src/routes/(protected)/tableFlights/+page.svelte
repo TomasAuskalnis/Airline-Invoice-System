@@ -189,32 +189,36 @@
 <!-- Modal Popup with smooth fade -->
 {#if showDeleteModal}
 <div
-    class="modal d-block"
-    tabindex="-1"
-    style="background: rgba(0,0,0,0.5); z-index: 1050;"
-    transition:fade|slide
+  class="modal d-block"
+  tabindex="-1"
+  style="background: rgba(0,0,0,0.5); z-index: 1050;"
+  transition:fade
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+
+      <!-- Header -->
       <div class="modal-header bg-danger text-white">
         <h5 class="modal-title">Confirm Delete</h5>
         <button
-            type="button"
-            class="btn-close"
-            aria-label="Close"
-            onclick={closeDeleteModal}
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          onclick={closeDeleteModal}
         ></button>
       </div>
-    </div>
 
+      <!-- Body -->
       <div class="modal-body">
         <p>
-            Are you sure you want to delete <strong>{flightToDelete?.flight_id}</strong>?
+          Are you sure you want to delete
+          <strong>{flightToDelete?.flight_id}</strong>?
         </p>
 
-        <!-- Show failure message inside the modal -->
         {#if modalDeleteError}
-          <div class="alert alert-danger mt-3">{modalDeleteError}</div>
+          <div class="alert alert-danger mt-3">
+            {modalDeleteError}
+          </div>
         {/if}
       </div>
 
@@ -223,7 +227,9 @@
         <!-- function to delete called through form post-->
         <form method="POST" action="?/deleteFlight" use:enhance={enhanceDeleteModal}>
           <input type="hidden" name="flightID" value={flightToDelete?.flight_id} />
-          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+          <button type="submit" class="btn btn-danger">
+            Yes, Delete
+          </button>
 
           <button
             type="button"
@@ -236,6 +242,7 @@
       </div>
     </div>
   </div>
+</div>
 {/if}
 
 <style>
