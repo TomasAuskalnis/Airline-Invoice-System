@@ -200,7 +200,7 @@
                     aria-required="true"
                     aria-describedby={errors.status ? 'flightStatus-error' : undefined}
                     aria-invalid={errors.status ? 'true' : 'false'}
-                    placeholder="Enter Status"
+                    placeholder="Paid/Unpaid"
                 />
                 {#if errors.status}
                     <div id="flightStatus-error" class="form-text text-danger">

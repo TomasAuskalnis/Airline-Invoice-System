@@ -13,10 +13,10 @@ import { user } from './auth.schema.js';
 export const aircraft = sqliteTable('aircraft', {
 	aircraft_id: integer().primaryKey({ autoIncrement: true }),
 	model: text().notNull().unique(),
-	status: text().notNull(),
 	capacity: integer().notNull(),
 	range: integer().notNull(),
-	speed: integer().notNull()
+	speed: integer().notNull(),
+	hourlyFuel: integer().notNull()
 });
 
 // -------------------------------------

@@ -38,10 +38,10 @@ export const actions = {
             // never pass a aircraft id in here or it will break auto increment
             const aircraftData = {
                 model: formData.get('aircraftModel'),
-                status: formData.get('aircraftStatus'),
                 capacity: Number(formData.get('aircraftCapacity')),
                 range: Number(formData.get('aircraftRange')),
-                speed: Number(formData.get('aircraftSpeed'))
+                speed: Number(formData.get('aircraftSpeed')),
+                hourlyFuel: Number(formData.get('aircraftFuel'))
             };
 
             // Call the aircraft service passing in the form data into the create function
@@ -94,10 +94,10 @@ export const actions = {
             // same logic as creating
             const aircraftData = {
                 model: formData.get('aircraftModel'),
-                status: formData.get('aircraftStatus'),
                 capacity: Number(formData.get('aircraftCapacity')),
                 range: Number(formData.get('aircraftRange')),
-                speed: Number(formData.get('aircraftSpeed'))
+                speed: Number(formData.get('aircraftSpeed')),
+                hourlyFuel: Number(formData.get('aircraftFuel'))
             };
 
             // Call the flights service passing in the form data

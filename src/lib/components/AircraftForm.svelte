@@ -50,7 +50,8 @@
         aircraftStatus: '',
         aircraftCapacity: 0,
         aircraftRange: 0,
-        aircraftSpeed: 0
+        aircraftSpeed: 0,
+        aircraftFuel: 0
     });
 
     /* =========================
@@ -59,17 +60,17 @@
     $effect(() => {
         if (aircraft) { // if there is a aircraft set values of form
             aircraftForm.aircraftModel = aircraft.model ?? '';
-            aircraftForm.aircraftStatus = aircraft.status ?? '';
             aircraftForm.aircraftCapacity = aircraft.capacity ?? 0;
             aircraftForm.aircraftRange = aircraft.range ?? 0;
             aircraftForm.aircraftSpeed = aircraft.speed ?? 0;
+            aircraftForm.aircraftFuel = aircraft.hourlyFuel ?? 0;
 
         } else { // if there now isn't return them to blanks
             aircraftForm.aircraftModel = '';
-            aircraftForm.aircraftStatus = '';
             aircraftForm.aircraftCapacity = 0;
             aircraftForm.aircraftRange = 0;
             aircraftForm.aircraftSpeed = 0;
+            aircraftForm.aircraftFuel = 0;
         }
     });
 
@@ -155,31 +156,6 @@
                 {/if}
             </div>
 
-            <!-- Status -->
-            <div class="mb-3">
-                <label for="aircraftStatus" class="form-label">
-                    Status <span class="text-danger" aria-label="required">*</span>
-                </label>
-                <input
-                    type="text"
-                    class="form-control"
-                    class:is-invalid={errors.status}
-                    id="aircraftStatus"
-                    name="aircraftStatus"
-                    bind:value={aircraftForm.aircraftStatus}
-                    required
-                    aria-required="true"
-                    aria-describedby={errors.status ? 'aircraftStatus-error' : undefined}
-                    aria-invalid={errors.status ? 'true' : 'false'}
-                    placeholder="Enter Status"
-                />
-                {#if errors.status}
-                    <div id="aircraftStatus-error" class="form-text text-danger">
-                        {errors.status}
-                    </div>
-                {/if}
-            </div>
-
             <!-- Capacity -->
             <div class="mb-3">
                 <label for="aircraftCapacity" class="form-label">
@@ -251,6 +227,31 @@
                 {#if errors.speed}
                     <div id="aircraftSpeed-error" class="form-text text-danger">
                         {errors.speed}
+                    </div>
+                {/if}
+            </div>
+
+            <!-- Fuel -->
+            <div class="mb-3">
+                <label for="aircraftFuel" class="form-label">
+                    Fuel consumption <span class="text-danger" aria-label="required">*</span>
+                </label>
+                <input
+                    type="number"
+                    class="form-control"
+                    class:is-invalid={errors.fuel}
+                    id="aircraftFuel"
+                    name="aircraftFuel"
+                    bind:value={aircraftForm.aircraftFuel}
+                    required
+                    aria-required="true"
+                    aria-describedby={errors.fuel ? 'aircraftFuel-error' : undefined}
+                    aria-invalid={errors.fuel ? 'true' : 'false'}
+                    placeholder="Enter fuel consumption"
+                />
+                {#if errors.fuel}
+                    <div id="aircraftFuel-error" class="form-text text-danger">
+                        {errors.fuel}
                     </div>
                 {/if}
             </div>

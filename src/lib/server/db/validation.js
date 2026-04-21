@@ -72,10 +72,10 @@ export const selectAircraftSchema = createSelectSchema(aircraft);
 // DO NOT INCLUDE AIRCRAFT ID
 export const insertAircraftSchema = createInsertSchema(aircraft, {
     model: z.string().min(2, 'Model is required'),
-    status: z.string().min(2, 'Status is required'),
     capacity: z.number().int().min(1, 'Capacity must be at least 1'),
     range: z.number().int().min(1, 'Range must be at least 1'),
-    speed: z.number().int().min(1, 'Speed must be at least 1')
+    speed: z.number().int().min(1, 'Speed must be at least 1'),
+    hourlyFuel: z.number().int().min(1, 'Fuel consumption must be at least 1')
 });
 
 export const updateAircraftSchema = insertAircraftSchema

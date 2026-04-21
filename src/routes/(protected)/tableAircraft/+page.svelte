@@ -140,10 +140,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Model</th> 
-                    <th>Status</th>
                     <th>Capacity</th>
                     <th>Range</th>
                     <th>Speed</th>
+                    <th>Fuel consumption</th>
                 </tr>
             </thead>
             <tbody>
@@ -153,10 +153,10 @@
                     <tr >
                         <td>{aircraft.aircraft_id}</td>
                         <td>{aircraft.model}</td>
-                        <td>{aircraft.status}</td>
                         <td>{aircraft.capacity}</td>
                         <td>{aircraft.range}</td>
                         <td>{aircraft.speed}</td>
+                        <td>{aircraft.hourlyFuel}</td>
 
                         <td>
                             <!-- update button-->

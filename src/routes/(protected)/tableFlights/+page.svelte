@@ -12,6 +12,7 @@
 
     // if state changes the variable will auto update
     let flights = $state(data.flights);
+    let allAircraft = $state(data.aircraft);
 
     /*
     export const flight = sqliteTable('flight', {
@@ -26,7 +27,21 @@
     */
 
     // Svelte 5 introduces $inspect(), which is for debugging reactive state instead of console.log
-    $inspect(flights);
+    //$inspect(flights);
+
+    // Invoice calculation
+    function generateInvoice(flight){
+
+        // find aircraft in db
+        const aircraft = allAircraft.find(aircraft => aircraft.aircraft_id === flight.aircraft_id);
+        console.log(aircraft);
+
+        // calculate fields
+        // handle time based strings 00:00
+
+        let fuel_cost = aircraft.hourlyFuel * flight.arrival_time - flight.departure_time
+        console.log(fuel_cost)
+    }
 
     /* ========================= 
        Add, Update and Delete
@@ -141,6 +156,7 @@
                     <th>Aircraft</th>
                     <th>Route</th>
                     <th>Created by</th>
+                    <th>Invoicing</th>
                 </tr>
             </thead>
 
@@ -155,6 +171,14 @@
                         <td>{flight.aircraft_id}</td>
                         <td>{flight.route_id}</td>
                         <td>{flight.created_by}</td>
+                        <td>
+                            <!-- invoice button-->
+                            <button 
+                                type="button" 
+                                onclick={() => generateInvoice(flight)}
+                                class="btn btn-primary">Generate Invoice
+                            </button>
+                        </td>
                         <td>
                             <!-- update button-->
                             <button
@@ -244,6 +268,24 @@
   </div>
 </div>
 {/if}
+
+<section>
+    <h3>Calculated Invoice</h3>
+    <table>
+        <thead class="table-success success-header">
+                <tr>
+                    <th>No.Item</th>
+                    <th>Description</th> 
+                    <th>QTY</th>
+                    <th>Cost</th>
+                    <th>Total</th>
+                </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+    </table>
+</section>
 
 <style>
     .success-header {
