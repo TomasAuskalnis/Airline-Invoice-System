@@ -29,18 +29,48 @@
     // Svelte 5 introduces $inspect(), which is for debugging reactive state instead of console.log
     //$inspect(flights);
 
+    let invoiceItems = $state([])
+
     // Invoice calculation
     function generateInvoice(flight){
+        const FUEL_COST_PER_L = 2.5
 
         // find aircraft in db
         const aircraft = allAircraft.find(aircraft => aircraft.aircraft_id === flight.aircraft_id);
-        console.log(aircraft);
+        //console.log(aircraft);
 
         // calculate fields
         // handle time based strings 00:00
+        let departure = String(flight.departure_time);
+        let arrival = String(flight.arrival_time);
 
-        let fuel_cost = aircraft.hourlyFuel * flight.arrival_time - flight.departure_time
-        console.log(fuel_cost)
+        // split hours and minutes and convert to numbers
+        let [depHours, depMinutes] = departure.split(":").map(Number);
+        let [arrHours, arrMinutes] = arrival.split(":").map(Number);
+        
+        // calculate total minutes
+        let depTotal = depHours * 60 + depMinutes;
+        let arrTotal = arrHours * 60 + arrMinutes;
+        let elapsedMin = arrTotal - depTotal;
+
+        // fuel cost
+        let fuelUsed = (elapsedMin / 60) * aircraft.hourlyFuel; // hourly fuel is in litres
+        let fuelCost = fuelUsed * FUEL_COST_PER_L
+        console.log("Fuel cost: $" + fuelCost)
+
+        // populate invoice items
+        // each item should be stuctured like a row for the invoice table
+        invoiceItems = [
+            {
+                item: 1,
+                description: "Fuel Usage",
+                qty: Math.floor(elapsedMin / 60),
+                unitCost: "$" + FUEL_COST_PER_L * 60,
+                total: "$" + fuelCost.toFixed(2)
+            }
+        ];
+
+        console.log(invoiceItems)
     }
 
     /* ========================= 
@@ -156,7 +186,7 @@
                     <th>Aircraft</th>
                     <th>Route</th>
                     <th>Created by</th>
-                    <th>Invoicing</th>
+                    <th>Operations</th>
                 </tr>
             </thead>
 
@@ -176,10 +206,11 @@
                             <button 
                                 type="button" 
                                 onclick={() => generateInvoice(flight)}
-                                class="btn btn-primary">Generate Invoice
+                                class="btn btn-primary">
+                                Generate Invoice
                             </button>
-                        </td>
-                        <td>
+
+
                             <!-- update button-->
                             <button
                                 type="button"
@@ -270,21 +301,48 @@
 {/if}
 
 <section>
-    <h3>Calculated Invoice</h3>
-    <table>
-        <thead class="table-success success-header">
-                <tr>
-                    <th>No.Item</th>
-                    <th>Description</th> 
-                    <th>QTY</th>
-                    <th>Cost</th>
-                    <th>Total</th>
-                </tr>
-        </thead>
+    <!-- Show section if invoice is populated-->
+    {#if invoiceItems.length > 0}
+        <table class="table table-bordered table-hover w-100">
+            <thead class="table-success success-header">
+                    <tr>
+                        <th>No.Item</th>
+                        <th>Description</th> 
+                        <th>QTY</th>
+                        <th>Unit cost</th>
+                        <th>Total</th>
+                    </tr>
+            </thead>
 
-        <tbody>
-        </tbody>
-    </table>
+            <tbody>
+                {#each invoiceItems as item}
+                    <tr>
+                        <td>{item.item}</td>
+                        <td>{item.description}</td>
+                        <td>{item.qty}</td>
+                        <td>{item.unitCost}</td>
+                        <td>{item.total}</td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+
+        <!-- Email button-->
+        <button 
+            type="button" 
+            onclick={() => email()}
+            class="btn btn-primary">
+            Email as Receipt
+        </button>
+
+        <!-- Payment button-->
+        <button 
+            type="button" 
+            onclick={() => pay()}
+            class="btn btn-primary">
+            Pay Invoice
+        </button>
+    {/if}
 </section>
 
 <style>
