@@ -101,7 +101,7 @@
             }
         };
     }
-</script>
+</script> 
 
 <h1>Aircraft</h1>
 
@@ -112,7 +112,6 @@
             <i class="bi bi-plus-circle"></i> Add New Aircraft
         </button>
     </div>
-
 
 
     <!-- Right column -->
