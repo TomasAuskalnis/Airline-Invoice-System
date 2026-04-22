@@ -183,9 +183,10 @@ export const actions = {
         }
 	},
 
-    checkout: async ({ locals, flightID }) => { 
+    checkout: async ({ request, locals, url }) => { 
         console.log("user attempting checkout")
-        console.log(flightID)
+        const data = await request.formData();
+        const flightID = data.get('flightID');
 
         if (!locals.user) throw error(401, 'Not authenticated'); 
 
@@ -203,24 +204,28 @@ export const actions = {
             flightID: flightID.toString() // <-- link Stripe session to order
         },
             
-        /*
-        line_items: items.map(item => ({
-        price_data: {
-        currency: 'eur',
-        product_data: { name: item.name },
-        unit_amount: item.unitPrice // price in cents
-        },
+        line_items: [
+        {
+            price_data: {
+            currency: 'eur',
+            product_data: {
+                name: 'Test Item'
+            },
+            unit_amount: 100 // €1.00
+            },
+            quantity: 10
+        }
+        ],
 
-        quantity: item.quantity
-        })),
-        */
-
-        //success_url: `${ORIGIN}/orders/success?session_id={CHECKOUT_SESSION_ID}`,
-        //cancel_url: `${ORIGIN}/cart`
+        success_url: `${url.origin}/tableFlights/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url.origin}/tableFlights`
 
         });
 
+        //console.log(session)
+        let checkout_url = session.url
+
         // 4️ Redirect user to Stripe-hosted checkout page
-        throw redirect(303, session.url);
+        throw redirect(303, checkout_url);
     }
 };
