@@ -4,6 +4,8 @@ import { error, fail } from '@sveltejs/kit';
 import { inspect } from 'node:util';
 import { ZodError } from 'zod';
 
+import { stripe } from '$lib/server/stripe.js'; 
+
 // load - server side
 export async function load() {
     try {
@@ -181,9 +183,9 @@ export const actions = {
         }
 	},
 
-    checkout: async ({ locals /*, flight_id */}) => { 
+    checkout: async ({ locals, flightID }) => { 
         console.log("user attempting checkout")
-        //console.log(flight_id)
+        console.log(flightID)
 
         if (!locals.user) throw error(401, 'Not authenticated'); 
 
@@ -198,7 +200,7 @@ export const actions = {
             payment_method_types: ['card'], // allow card payments
             customer_email: "X00227989@myTUDublin.ie",// locals.user.email, // optional, prefill Stripe checkout
             metadata: {
-            flightID: flight_id.toString() // <-- link Stripe session to order
+            flightID: flightID.toString() // <-- link Stripe session to order
         },
             
         /*

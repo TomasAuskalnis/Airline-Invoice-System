@@ -56,7 +56,7 @@
         // fuel cost
         let fuelUsed = (elapsedMin / 60) * aircraft.hourlyFuel; // hourly fuel is in litres
         let fuelCost = fuelUsed * FUEL_COST_PER_L
-        console.log("Fuel cost: $" + fuelCost)
+        //console.log("Fuel cost: $" + fuelCost)
 
         // populate invoice items
         // each item should be stuctured like a row for the invoice table
@@ -69,8 +69,6 @@
                 total: "$" + fuelCost.toFixed(2)
             }
         ];
-
-        console.log(invoiceItems)
     }
 
     /* ========================= 
@@ -340,9 +338,13 @@
         <!-- Payment button-->
         <!-- figure out how to pass flight id into form as another argument-->
         <form method="post" action="?/checkout">
+            <input type="hidden" name="flightID" value={1} />
+            <!--
+            <input type="hidden" name="total" value= />
+            -->
+
             <button 
-                type="button" 
-                onclick={() => generateInvoice(flight)}
+                type="submit" 
                 class="btn btn-primary">
                 Pay Invoice
             </button>
