@@ -2,6 +2,10 @@ import { flightsDataAccess } from '../data-access/flights-data-access.js';
 import { NotFoundError } from '../utils/errors.js';
 import { insertFlightSchema, updateFlightSchema, deleteFlightSchema }from '../db/validation.js';
 
+// stripe for invoice payments
+import { stripe } from '$lib/server/stripe.js'; 
+import { ORIGIN } from '$env/static/private'; 
+
 // works the same as products service layer
 
 // The Service Layer performs validation, permission checks,

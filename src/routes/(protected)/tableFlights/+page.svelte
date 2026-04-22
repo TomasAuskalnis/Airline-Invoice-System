@@ -336,12 +336,14 @@
         </button>
 
         <!-- Payment button-->
-        <button 
-            type="button" 
-            onclick={() => pay()}
-            class="btn btn-primary">
-            Pay Invoice
-        </button>
+        <form method="post" action="?/pay">
+            <button 
+                type="button" 
+                onclick={() => pay(flight.flight_id)}
+                class="btn btn-primary">
+                Pay Invoice
+            </button>
+        </form>
     {/if}
 </section>
 

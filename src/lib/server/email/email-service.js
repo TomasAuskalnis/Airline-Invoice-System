@@ -1,11 +1,11 @@
 console.log('EMAIL SERVICE FILE LOADED');
 
-import { Resend } from 'resend'; 
-import { RESEND_API_KEY } from '$env/static/private'; 
+import { Resend } from 'resend';
+import { RESEND_API_KEY } from '$env/static/private';
 
-const resend = new Resend(RESEND_API_KEY); 
+const resend = new Resend(RESEND_API_KEY);
 
-export async function sendContactEmail({ to }) { 
+export async function sendOrderConfirmationEmail({ to }) { 
     console.log('sendContactEmail called with:', to);
     
     await resend.emails.send({ 

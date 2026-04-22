@@ -31,7 +31,7 @@ export const actions = {
     notifyContactReceived: async (event) => {
         try {
             // hardcode for now (since you said no form data needed)
-            await sendContactEmail({
+            await sendOrderConfirmationEmail({
                 email: 'X00227989@myTUDublin.ie'
             });
 

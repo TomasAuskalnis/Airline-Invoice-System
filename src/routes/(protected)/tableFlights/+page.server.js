@@ -179,5 +179,47 @@ export const actions = {
                 errors: { general: 'Failed to delete flight' }
             });
         }
-	}
+	},
+
+    pay: async ({ locals, flight_id }) => { 
+        console.log("user attempting checkout")
+        console.log(flight_id)
+
+        if (!locals.user) throw error(401, 'Not authenticated'); 
+
+        // 1️ Get user's cart and items  
+        // figure out how to get id to here as an argument
+        // won't work as is
+        // const flight = await flightsService.getFlightById(id); 
+
+        // 3️ Create Stripe Checkout session
+        const session = await stripe.checkout.sessions.create({
+            mode: 'payment', // one-time payment
+            payment_method_types: ['card'], // allow card payments
+            customer_email: "X00227989@myTUDublin.ie",// locals.user.email, // optional, prefill Stripe checkout
+            metadata: {
+            flightID: flight_id.toString() // <-- link Stripe session to order
+        },
+            
+
+        /*
+        line_items: items.map(item => ({
+        price_data: {
+        currency: 'eur',
+        product_data: { name: item.name },
+        unit_amount: item.unitPrice // price in cents
+        },
+
+        quantity: item.quantity
+        })),
+        */
+
+        //success_url: `${ORIGIN}/orders/success?session_id={CHECKOUT_SESSION_ID}`,
+        //cancel_url: `${ORIGIN}/cart`
+
+        });
+
+        // 4️ Redirect user to Stripe-hosted checkout page
+        throw redirect(303, session.url);
+    }
 };
