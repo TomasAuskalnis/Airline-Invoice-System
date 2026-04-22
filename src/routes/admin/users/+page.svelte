@@ -147,12 +147,6 @@
     </div>
     <!-- Deimas-->
 
-    <div>
-        <!-- add user button, run function to add new on click -->
-         <button type="button" class="btn btn-success w-100" onclick={handleAddNew}>
-            <i class="bi bi-plus-circle"></i> Add new User
-         </button>
-    </div>
 
     <!-- Right column -->
     <div class="col-sm-10">
