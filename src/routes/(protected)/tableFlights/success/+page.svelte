@@ -1,6 +1,6 @@
 <script>
     let { data } = $props();
-    const { order } = data; // data from server js
+    const { flight } = data; // data from server js
 
     const euro = new Intl.NumberFormat('en-IE', {
         style: 'currency',
@@ -8,10 +8,8 @@
 });
 
 </script>
-<!-- displays the order-->
-<h2>Order Confirmed</h2>
-<p>Thank you for your order. Your order ID is <strong>#{order.id}</strong>.</p>
-<p><strong>Total:</strong> {euro.format(order.total / 100)}</p>
-<p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+<!-- displays the flight-->
+<h2>Payment Confirmed</h2>
+<p>Thank you for paying your invoice for flight ID <strong>#{flight.flight_id}</strong>.</p>
 
-<a href="/orders" class="btn btn-primary">View all orders</a> 
+<a href="/tableFlights" class="btn btn-primary">View all flights</a> 

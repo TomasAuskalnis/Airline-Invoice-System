@@ -29,22 +29,17 @@ export async function load({ url, locals }) {
         throw error(400, 'Payment not completed');
     }
 
-    // 5️ Extract orderId from metadata
-    const orderId = Number(session.metadata?.orderId);
-    if (!Number.isInteger(orderId)) {
-        throw error(400, 'Invalid order reference');
+    // 5️ Extract flightID from metadata
+    const flightID = Number(session.metadata?.flightID);
+    if (!Number.isInteger(flightID)) {
+        throw error(400, 'Invalid flight reference');
     }
 
-    // 6️ Load order from database
-    const order = await ordersService.getOrderById(orderId);
-    if (!order) {
-        throw error(404, 'Order not found');
+    // 6️ Load flight from database
+    const flight = await flightsService.getFlightById(flightID);
+    if (!flight) {
+        throw error(404, 'Flight not found');
     }
 
-    // 7️ Security check
-    if (order.userId !== userId) {
-        throw error(403, 'Access denied');
-    }
-
-    return { order };
+    return { flight };
 }

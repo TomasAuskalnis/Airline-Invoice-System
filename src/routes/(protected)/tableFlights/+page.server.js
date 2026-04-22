@@ -181,9 +181,9 @@ export const actions = {
         }
 	},
 
-    pay: async ({ locals, flight_id }) => { 
+    checkout: async ({ locals /*, flight_id */}) => { 
         console.log("user attempting checkout")
-        console.log(flight_id)
+        //console.log(flight_id)
 
         if (!locals.user) throw error(401, 'Not authenticated'); 
 
@@ -201,7 +201,6 @@ export const actions = {
             flightID: flight_id.toString() // <-- link Stripe session to order
         },
             
-
         /*
         line_items: items.map(item => ({
         price_data: {

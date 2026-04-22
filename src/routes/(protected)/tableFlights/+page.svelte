@@ -338,10 +338,11 @@
         </button>
 
         <!-- Payment button-->
-        <form method="post" action="?/pay">
+        <!-- figure out how to pass flight id into form as another argument-->
+        <form method="post" action="?/checkout">
             <button 
                 type="button" 
-                onclick={() => pay(flight.flight_id)}
+                onclick={() => generateInvoice(flight)}
                 class="btn btn-primary">
                 Pay Invoice
             </button>
