@@ -101,7 +101,9 @@
             }
         };
     }
-</script> 
+</script>
+
+<h1>Aircraft</h1>
 
 <section id="existing-aircraft">
     <div>
@@ -111,7 +113,7 @@
         </button>
     </div>
 
-    <h1>Aircraft</h1>
+
 
     <!-- Right column -->
     <div class="col-sm-10">

@@ -147,6 +147,8 @@
     }
 </script>
 
+<h1>Flights</h1>
+
 
 <section id="existing-flights">
     <div>
