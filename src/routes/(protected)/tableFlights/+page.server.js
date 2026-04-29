@@ -5,6 +5,8 @@ import { inspect } from 'node:util';
 import { ZodError } from 'zod';
 
 import { stripe } from '$lib/server/stripe.js'; 
+import { redirect } from '@sveltejs/kit';
+
 
 // load - server side
 export async function load() {
