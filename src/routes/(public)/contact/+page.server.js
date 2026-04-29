@@ -1,8 +1,8 @@
 import { usersService } from '$lib/server/services/users-service.js';
 import { error, fail } from '@sveltejs/kit';
 import { ZodError } from 'zod';
-
 import { notifyContactReceived } from '$lib/server/notifications/contact-notifications.js';
+import { sendOrderConfirmationEmail } from '$lib/server/email/email-service.js';
 
 // load - server side
 export async function load(event) {

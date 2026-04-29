@@ -2,15 +2,16 @@ console.log('EMAIL SERVICE FILE LOADED');
 
 import { Resend } from 'resend';
 import { RESEND_API_KEY } from '$env/static/private';
+import { user } from '../db/auth.schema';
 
 const resend = new Resend(RESEND_API_KEY);
 
-export async function sendOrderConfirmationEmail({ to }) { 
-    console.log('sendContactEmail called with:', to);
+export async function sendOrderConfirmationEmail({ email }) { 
+    console.log('sendOrderConfirmationEmail called with:', email);
     
-    await resend.emails.send({ 
+    const send =await resend.emails.send({ 
         from: 'WebDev Shop <onboarding@resend.dev>', 
-        to, 
+        to: email, 
         subject: `Inquiry Confirmation`, 
         html: ` 
             <h2>Thank you for your inquiry</h2> 
@@ -18,7 +19,8 @@ export async function sendOrderConfirmationEmail({ to }) {
             ` 
     }); 
 
-    console.log("Email sent to", to); 
+    console.log("Email sent to", email);
+    return send;
 } 
 
  

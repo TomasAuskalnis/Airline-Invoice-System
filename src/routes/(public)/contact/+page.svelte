@@ -1,29 +1,11 @@
 <script>
     import { enhance } from '$app/forms';
 
+
     // get data that was returned when the page was loaded
-    let { data } = $props();
-
+    let { data,form } = $props();
     // get the user opening page too
-    let user =  $state(data.user)
-    //console.log(user)
-
-    function submit(){
-        console.log("sent")
-        let email = document.getElementById("email").value
-        let fname = document.getElementById("firstname").value
-        let lname = document.getElementById("surname").value
-        let phone = document.getElementById("phone").value
-        let ticket = document.getElementById("ticket").value
-
-        let json = `
-            "{email}": ${email};
-            "{name}": ${name}; 
-            "{last name}": ${lname};
-            "{phone}": ${phone};
-            "{ticket}": ${ticket};
-        `
-} 
+    let user =  $state(data.user);
 </script>
 
 <section>
@@ -32,31 +14,39 @@
         <div class="row">
             <div class="col-4">
                 <h3 id="formHeading">Enter your details for a response</h3>
-                
-                <form id="objectsForm" method="POST" action="?/notifyContactReceived" use:enhance class="p-2">
-                    
+
+                <!-- Check if request submits sucessfully, if not send an error message -->
+                {#if form?.success}
+                    <p class="text-success">Contact request submitted successfully!</p>
+                {/if}
+                {#if form?.error}
+                    <p class="text-danger">Error submitting contact request: {form.error}</p>
+                {/if}
+
+                <form method="POST" action="?/notifyContactReceived" use:enhance class="p-2">
+    
                     <h3>Details</h3>
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-4">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" id="email" class="form-control" value="Enter email">
+                                <input type="text" id="email" name="email" class="form-control" value="Enter email">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-4">
                                 <label for="firstname" class="form-label">First name</label>
-                                <input type="text" id="firstname" class="form-control" value="Insert first name here">
+                                <input type="text" id="firstname" name="firstname" class="form-control" value="Insert first name here">
                             </div>
                         </div>
                                                 <div class="col-12">
                             <div class="mb-4">
                                 <label for="surname" class="form-label">Surname</label>
-                                <input type="text" id="surname" class="form-control" value="Insert surname here">
+                                <input type="text" id="surname" name="surname" class="form-control" value="Insert surname here">
                             </div>
                             <div class="mb-4">
                                 <label for="phone" class="form-label">Phone number</label>
-                                <input type="text" id="phone" class="form-control" value="Enter phone number">
+                                <input type="text" id="phone" name="phone"  class="form-control" value="Enter phone number">
                             </div>
                             
                             <div class="mb-4">
