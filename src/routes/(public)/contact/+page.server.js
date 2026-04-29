@@ -1,8 +1,8 @@
 import { usersService } from '$lib/server/services/users-service.js';
 import { error, fail } from '@sveltejs/kit';
 import { ZodError } from 'zod';
-import { notifyContactReceived } from '$lib/server/notifications/contact-notifications.js';
 import { sendOrderConfirmationEmail } from '$lib/server/email/email-service.js';
+import { notifyContactReceived } from '$lib/server/notifications/contact-notifications.js';
 
 // load - server side
 export async function load(event) {
@@ -30,15 +30,13 @@ export async function load(event) {
 export const actions = {
     notifyContactReceived: async (event) => {
         try {
-            // hardcode for now (since you said no form data needed)
-            await sendOrderConfirmationEmail({
-                email: 'X00227989@myTUDublin.ie'
+            const result = await sendOrderConfirmationEmail({
+                email: 'x00227989@mytudublin.ie'
             });
-
+            console.log('Resend result:', result);
             return { success: true };
-
         } catch (err) {
-            console.error(err);
+            console.error('Action error:', err); 
             return fail(500, { error: 'Failed to send email' });
         }
     }
