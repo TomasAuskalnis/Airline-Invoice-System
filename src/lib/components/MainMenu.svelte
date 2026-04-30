@@ -27,13 +27,16 @@
 						<a class="nav-link" href="/contact"><i class="bi bi-envelope me-1"></i>Contact</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/flights"><i class="bi bi-globe me-1"></i>Flights</a>
+						<a class="nav-link" href="/tableFlights"><i class="bi bi-globe me-1"></i>Flights</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/tableRoutes"><i class="bi bi-globe me-1"></i>Routes</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/users"><i class="bi bi-people me-1"></i>Users</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/aircraft"><i class="bi bi-airplane me-1"></i>Aircraft</a>
+						<a class="nav-link" href="/tableAircraft"><i class="bi bi-airplane me-1"></i>Aircraft</a>
 					</li>
 					{#if data.user}
 						<li class="nav-item dropdown">

@@ -328,12 +328,11 @@
         </table>
 
         <!-- Email button-->
-        <button 
-            type="button" 
-            onclick={() => email()}
-            class="btn btn-primary">
-            Email as Receipt
-        </button>
+        <form method="POST" action="?/notifyInvoiceReceived">
+            <button type="submit" class="btn btn-primary">
+                Email as Receipt
+            </button>
+        </form>
 
         <!-- Payment button-->
         <!-- figure out how to pass flight id into form as another argument-->

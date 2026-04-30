@@ -1,3 +1,4 @@
+import { sendInvoiceConfirmationEmail } from '$lib/server/email/email-service';
 import { aircraftsService } from '$lib/server/services/aircrafts-service.js';
 import { error, fail } from '@sveltejs/kit';
 import { ZodError } from 'zod';
@@ -177,3 +178,4 @@ export const actions = {
         }
 	}
 };
+

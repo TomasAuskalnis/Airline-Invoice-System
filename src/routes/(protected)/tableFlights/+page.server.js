@@ -3,9 +3,10 @@ import { aircraftsService } from '$lib/server/services/aircrafts-service.js';
 import { error, fail } from '@sveltejs/kit';
 import { inspect } from 'node:util';
 import { ZodError } from 'zod';
-
 import { stripe } from '$lib/server/stripe.js'; 
 import { redirect } from '@sveltejs/kit';
+import { sendInvoiceConfirmationEmail } from '$lib/server/email/email-service.js';
+import { notifyInvoiceReceived } from '$lib/server/notifications/invoice-notifications.js';
 
 
 // load - server side
@@ -229,5 +230,18 @@ export const actions = {
 
         // 4️ Redirect user to Stripe-hosted checkout page
         throw redirect(303, checkout_url);
+    },
+
+     notifyInvoiceReceived: async (event) => {
+        try {
+            const result = await sendInvoiceConfirmationEmail({
+                email: 'x00227989@mytudublin.ie',
+            });
+            console.log('Resend result:', result);
+            return { success: true };
+        } catch (err) {
+            console.error('Action error:', err); 
+            return fail(500, { error: 'Failed to send email' });
+        }
     }
 };
