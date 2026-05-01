@@ -1,9 +1,10 @@
 import { send } from "vite";
 import { sendInvoiceConfirmationEmail } from "../email/email-service.js";
 
-export async function notifyInvoiceReceived({ email, flight }) {
+export async function notifyInvoiceReceived({ email, flight_id, body }) {
     await sendInvoiceConfirmationEmail({
-        to: email,
-        flight_id: flight.flight_id,    
-    })
+        email,
+        flight_id,
+        body
+    });
 }

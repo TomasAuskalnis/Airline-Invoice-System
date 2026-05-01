@@ -240,10 +240,31 @@ export const actions = {
         throw redirect(303, checkout_url);
     },
 
-     notifyInvoiceReceived: async (event) => {
+     notifyInvoiceReceived: async ({ request }) => {
+
+        // retrieve inputed json from page
+        const data = await request.formData();
+        const invoiceItems = JSON.parse(data.get('invoiceItems'));
+        console.log(invoiceItems);
+
+        // build body from invoice items by mapping values 
+        const body = invoiceItems.map(item =>
+            `Item: ${item.item}
+            Flight: ${item.flight}
+            Description: ${item.description}
+            Qty: ${item.qty}
+            Unit Cost: ${item.unitCost}
+            Total: ${item.total}
+        `).join('\n\n');
+
+        const emailText = `Invoice Receipt\n\n${body}`;
+        const flight_id = invoiceItems?.[0]?.flight;
+
         try {
             const result = await sendInvoiceConfirmationEmail({
                 email: 'x00227989@mytudublin.ie',
+                flight_id,
+                body: emailText
             });
             console.log('Resend result:', result);
             return { success: true };

@@ -23,20 +23,20 @@ export async function sendOrderConfirmationEmail({ email }) {
     return send;
 } 
 
-export async function sendInvoiceConfirmationEmail({ email, flight_id }) { 
+export async function sendInvoiceConfirmationEmail({ email, flight_id, body }) { 
     console.log('sendInvoiceConfirmationEmail called with:', email, flight_id);
-    
-    const send =await resend.emails.send({ 
+
+    const send = await resend.emails.send({ 
         from: 'Airline Invoice System <onboarding@resend.dev>', 
         to: email, 
         subject: `Invoice Confirmation for Flight ${flight_id}`, 
         html: ` 
             <h2>Thank you for your invoice</h2> 
             <p>Your invoice for flight ${flight_id} has been received.</p> 
-            <p>We will get back to you shortly.</p> 
-            ` 
+            <pre>${body}</pre>
+        ` 
     }); 
 
     console.log("Email sent to", email);
     return send;
-}  
+}

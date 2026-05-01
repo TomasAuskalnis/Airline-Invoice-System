@@ -355,10 +355,15 @@
 
         <!-- Email button-->
         <form method="POST" action="?/notifyInvoiceReceived">
+
+            <!-- send all invoice items as stringified json-->
+            <input type="hidden" name="invoiceItems" value={JSON.stringify(invoiceItems)} />
+
             <button type="submit" class="btn btn-primary">
                 Email as Receipt
             </button>
         </form>
+
 
         <!-- Payment button-->
         <!-- figure out how to pass flight id into form as another argument-->
