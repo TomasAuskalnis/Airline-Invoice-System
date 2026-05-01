@@ -63,6 +63,7 @@
         invoiceItems = [
             {
                 item: 1,
+                flight: flight.flight_id,
                 description: "Fuel Usage",
                 qty: Math.floor(elapsedMin / 60),
                 unitCost: "$" + FUEL_COST_PER_L * 60,
@@ -143,6 +144,29 @@
             }
         };
     }
+
+
+    // create grand total var for form post
+    // derive from invoice items
+    const grandTotal = $derived(
+
+        // reduce items to a sum
+        invoiceItems.reduce((sum, item) => {
+
+            // extract float value 
+            const value = parseFloat(
+
+                // clean up any messy strings
+                String(item.total ?? 0).replace(/[^\d.-]/g, '')
+            );
+
+            // add total, add 0 if nan
+            return sum + (isNaN(value) ? 0 : value);
+        }, 0)
+    );
+
+    // track flight id for invoice item here
+    const invoiced_flight = $derived(invoiceItems?.[0]?.flight);
 </script>
 
 <h1>Flights</h1>
@@ -307,6 +331,7 @@
             <thead class="table-success success-header">
                     <tr>
                         <th>No.Item</th>
+                        <th>Flight</th>
                         <th>Description</th> 
                         <th>QTY</th>
                         <th>Unit cost</th>
@@ -318,6 +343,7 @@
                 {#each invoiceItems as item}
                     <tr>
                         <td>{item.item}</td>
+                        <td>{item.flight}</td>
                         <td>{item.description}</td>
                         <td>{item.qty}</td>
                         <td>{item.unitCost}</td>
@@ -337,10 +363,8 @@
         <!-- Payment button-->
         <!-- figure out how to pass flight id into form as another argument-->
         <form method="post" action="?/checkout">
-            <input type="hidden" name="flightID" value={1} />
-            <!--
-            <input type="hidden" name="total" value= />
-            -->
+            <input type="hidden" name="flightID" value={invoiced_flight} />
+            <input type="hidden" name="total" value= {grandTotal}/>
 
             <button 
                 type="submit" 

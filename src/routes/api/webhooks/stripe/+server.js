@@ -36,25 +36,25 @@ export const POST = async ({ request }) => {
         const session = event.data.object;
         const flightID = Number(session.metadata?.flightID);
         const paymentIntentId = session.payment_intent;
-    
-    // check flight id
-    if (!flightID) {
-        console.warn('checkout.session.completed without metadata');
-        }
-    } else { 
-        try { 
-            // 5️ Mark flight status as paid (single source of truth) 
-            await flightsService.updateFlight(flight_id, { 
-            status: 'paid', 
-            paymentIntentId 
-            }); 
 
-            console.log(`Order ${orderId} marked as paid`); 
-            } catch (err) { 
-            console.error(`Failed to update order ${orderId}:`, err); 
-        } 
-    } 
+        // check flight id
+        if (!flightID) {
+            console.warn('checkout.session.completed without metadata');
+        }
+
+        try {
+            // 5️ Mark flight status as paid (single source of truth)
+            await flightsService.updateFlight(flightID, {
+                status: 'paid',
+                paymentIntentId
+            });
+
+            console.log(`Flight ${flightID} marked as paid`);
+        } catch (err) {
+            console.error(`Failed to update order ${flightID}:`, err);
+        }
+    }
 
     // 6️ Acknowledge receipt to Stripe
     return json({ received: true });
-}; 
+};

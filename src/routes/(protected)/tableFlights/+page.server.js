@@ -190,6 +190,10 @@ export const actions = {
         console.log("user attempting checkout")
         const data = await request.formData();
         const flightID = data.get('flightID');
+        const total = data.get('total');
+
+        console.log(flightID)
+        console.log(total)
 
         if (!locals.user) throw error(401, 'Not authenticated'); 
 
@@ -208,16 +212,20 @@ export const actions = {
         },
             
         line_items: [
-        {
-            price_data: {
-            currency: 'eur',
-            product_data: {
-                name: 'Test Item'
-            },
-            unit_amount: 100 // €1.00
-            },
-            quantity: 10
-        }
+            {
+                price_data: {
+                    currency: 'eur',
+
+                    product_data: {
+                        name: 'Flight Invoice'
+                    },
+
+                    // convert euros → cents
+                    unit_amount: Math.round(total * 100)
+                },
+
+                quantity: 1
+            }
         ],
 
         success_url: `${url.origin}/tableFlights/success?session_id={CHECKOUT_SESSION_ID}`,
