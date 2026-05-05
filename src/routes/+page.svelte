@@ -15,7 +15,7 @@
     <div class="card mb-3">
         <img src="flights.jpg" alt="flightsImage" class="card-img-top" style="max-height: 400px; object-fit: cover;">
         <div class="card-body">
-            <h5 class="card-title"><a href="/flights">Flights page</a></h5>
+            <h5 class="card-title"><a href="/tableFlights">Flights page</a></h5>
             <p class="card-text lead">On the flights page, you can view all available flights, their status, and create new flights.</p>
         </div>
     </div>
@@ -29,7 +29,7 @@
     <div class="card mb-3">
         <img src="aircraft.jpg" alt="aircraftImage" class="card-img-top" style="max-height: 400px; object-fit: cover;">
         <div class="card-body">
-            <h5 class="card-title"><a href="/aircraft">Aircraft page</a></h5>
+            <h5 class="card-title"><a href="/tableAircraft">Aircraft page</a></h5>
             <p class="card-text lead">Here you can view the inventory of aircraft and register new aircraft. You will also be able to view their current status and availability.</p>
         </div>
     </div>
