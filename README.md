@@ -5,7 +5,7 @@ Everything you need to build a Svelte project, powered by [`sv`](https://github.
 
 ## Creating a project
 
-If you're seeing this, you've probably already done this step. Congrats!
+
 
 ```sh
 # create a new project
